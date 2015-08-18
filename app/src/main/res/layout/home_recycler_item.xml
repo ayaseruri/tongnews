@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.x.tongnews.view.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/MaterialRipplelayoutBase">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/home_card_root"
+        android:layout_width="match_parent"
+        android:layout_height="135dp"
+        android:layout_margin="5dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/main_color"/>
+
+            <FrameLayout
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="5dp"
+                android:layout_gravity="center_vertical">
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    fresco:actualImageScaleType="centerCrop"
+                    fresco:roundedCornerRadius="2dp" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="标题"
+                    android:textColor="#616161"
+                    android:textSize="15sp"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
+
+                <RelativeLayout
+                    android:id="@+id/info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:id="@+id/ic_author"
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:src="@drawable/ic_action_mode_edit"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:id="@+id/author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="作者"
+                        android:textColor="#757575"
+                        android:textSize="13sp"
+                        android:layout_toRightOf="@+id/ic_author"/>
+
+                    <ImageView
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:src="@drawable/ic_action_access_time"
+                        android:layout_toLeftOf="@+id/time"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="时间"
+                        android:textColor="#757575"
+                        android:textSize="13sp"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/short_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="简介"
+                    android:textColor="#757575"
+                    android:textSize="13sp"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    android:lineSpacingMultiplier="1.2"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="bottom">
+
+                    <ImageView
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:src="@drawable/ic_action_label" />
+
+                    <org.x.tongnews.view.TagsView
+                        android:id="@+id/tags"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:textPaddingLeft="2dp"
+                        app:textPaddingRight="2dp"
+                        app:textPaddingTop="2dp"
+                        app:textPaddingBottom="1dp"
+                        app:textColor="#757575"
+                        app:textSize="13sp"
+                        app:tagsSpace="8dp"
+                        app:tagsBg="@drawable/tags_bg"
+                        app:maxlines="1"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</org.x.tongnews.view.MaterialRippleLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="main_tabs_title">
+        <item>首页</item>
+        <item>摄影联盟</item>
+        <item>圣地巡礼</item>
+        <item>动漫资讯</item>
+        <item>关于我们</item>
+    </string-array>
+    
+    <string-array name="photographer_avatar_urls">
+        <item>http://7xk7dq.com1.z0.glb.clouddn.com/images/photo/author/fl.jpg</item>
+        <item>http://7xk7dq.com1.z0.glb.clouddn.com/images/photo/author/hm.jpg</item>
+        <item>http://7xk7dq.com1.z0.glb.clouddn.com/images/photo/author/xr.jpg</item>
+        <item>http://7xk7dq.com1.z0.glb.clouddn.com/images/photo/author/zgn.jpg</item>
+        <item>http://7xk7dq.com1.z0.glb.clouddn.com/images/photo/author/yz.jpg</item>
+        <item>http://7xk7dq.com1.z0.glb.clouddn.com/images/photo/author/mc.jpg</item>
+        <item>http://7xk7dq.com1.z0.glb.clouddn.com/images/photo/author/al.jpg</item>
+        <item>http://7xk7dq.com1.z0.glb.clouddn.com/images/photo/author/cls.jpg</item>
+        <item>http://7xk7dq.com1.z0.glb.clouddn.com/images/photo/author/mz.jpg</item>
+    </string-array>
+
+    <string-array name="photographer_photo_urls">
+        <item>51,52,53,54,55,56,57,58,59,60</item>
+        <item>20,21,12,26,16,17,18,19</item>
+        <item>14,27,28,29,30,31,32,33,39,40</item>
+        <item>7,8,9,10,11,35,36,37,38,67</item>
+        <item>1, 2, 3, 4, 5, 6, 34,43,44,45</item>
+        <item>15, 22, 23, 24, 25, 42</item>
+        <item>46, 47, 68,69,70,71,72,73,74,75,76</item>
+        <item>78,79,80,81,82,83,84,85,86,87</item>
+        <item>88,89,90,91,92,93,94,95,96,97,98</item>
+    </string-array>
+
+    <string-array name="photographer_nickname">
+        <item>风铃</item>
+        <item>好米</item>
+        <item>僖然</item>
+        <item>周姑娘</item>
+        <item>圆子</item>
+        <item>风铃</item>
+        <item>风铃</item>
+        <item>风铃</item>
+        <item>风铃</item>
+    </string-array>
+</resources>

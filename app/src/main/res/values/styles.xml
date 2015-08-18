@@ -1,0 +1,57 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus">
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorPrimary">@color/main_color</item>
+        <item name="colorPrimaryDark">#b94364</item>
+        <item name="android:navigationBarColor">@color/main_color</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+    </style>
+
+    <style name="Translucent" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    
+    <style name="ProgressBar" parent="Material.Drawable.CircularProgress">
+        <item name="cpd_strokeColor">@color/main_color</item>
+    </style>
+    
+    <style name="MaterialRipplelayoutBase">
+        <item name="rippleAlpha">0.08</item>
+        <item name="rippleBackground">#FFFFFF</item>
+        <item name="matericalRippleColor">@color/main_color</item>
+        <item name="rippleDelayClick">true</item>
+        <item name="rippleDimension">10dp</item>
+        <item name="rippleDuration">100</item>
+        <item name="rippleFadeDuration">75</item>
+        <item name="rippleHover">true</item>
+        <item name="rippleOverlay">true</item>
+        <item name="ripplePersistent">false</item>
+        <item name="rippleInAdapter">false</item>
+    </style>
+
+    <style name="expandedTitleTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textSize">20sp</item>
+        <item name="android:maxLength">10</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="media_controller_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+    </style>
+
+    <style name="AnimationActivity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/stay_same</item>
+        <item name="android:activityOpenExitAnimation">@anim/stay_same</item>
+    </style>
+</resources>

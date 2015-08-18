@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:key="switch_preference"
+        android:summaryOff="已关闭"
+        android:summaryOn="已开启"
+        android:switchTextOff="close"
+        android:switchTextOn="open"
+        android:title="开关" />
+    <SwitchPreference
+        android:key="switch_preference"
+        android:summaryOff="已关闭"
+        android:summaryOn="已开启"
+        android:switchTextOff="close"
+        android:switchTextOn="open"
+        android:title="开关" />
+    <SwitchPreference
+        android:key="switch_preference"
+        android:summaryOff="已关闭"
+        android:summaryOn="已开启"
+        android:switchTextOff="close"
+        android:switchTextOn="open"
+        android:title="开关" />
+</PreferenceScreen>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<org.x.tongnews.view.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/photographer_item_root"
+    android:layout_width="wrap_content"
+    android:layout_height="85dp"
+    style="@style/MaterialRipplelayoutBase">
+
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/photographer_avatar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:actualImageScaleType="centerCrop"
+            app:roundAsCircle="true"
+            app:roundingBorderColor="@color/main_color"
+            app:roundingBorderWidth="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"/>
+
+        <TextView
+            android:id="@+id/photographer_nikename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="昵称"
+            android:textSize="12sp"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+    <ImageView
+        android:layout_width="2px"
+        android:layout_height="match_parent"
+        android:background="#75757575"
+        android:layout_marginLeft="5dp"/>
+</LinearLayout>
+</org.x.tongnews.view.MaterialRippleLayout>

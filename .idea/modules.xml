@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/googlemediaframework/googlemediaframework.iml" filepath="$PROJECT_DIR$/googlemediaframework/googlemediaframework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library-addition/library-addition.iml" filepath="$PROJECT_DIR$/library-addition/library-addition.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tongnews.iml" filepath="$PROJECT_DIR$/tongnews.iml" />
+    </modules>
+  </component>
+</project>

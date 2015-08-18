@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">痛新闻</string>
+
+    <string name="drawer_item_home">首页</string>
+    <string name="drawer_item_square">广场</string>
+    <string name="title_activity_post_detail">正在打开详情</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="net_error">抱歉，但是网络似乎不稳定呢</string>
+    <string name="title_activity_video_play">VideoPlay</string>
+
+    <string name="video_time">%1$s/%2$s</string>
+    <string name="hello_world">Hello world!</string>
+</resources>

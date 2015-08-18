@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/video_side_view_bg">
+
+    <TextView
+        android:id="@android:id/text1"
+        android:textColor="#757575"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/media_controller_text"
+        android:layout_margin="10dp"/>
+</LinearLayout>
