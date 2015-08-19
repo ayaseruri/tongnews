@@ -2,18 +2,18 @@ package org.x.tongnews.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.UiThread;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.orhanobut.logger.Logger;
 
 import org.androidannotations.annotations.AfterViews;
@@ -23,17 +23,17 @@ import org.androidannotations.annotations.ViewById;
 import org.x.tongnews.R;
 import org.x.tongnews.activity.MainActivity;
 import org.x.tongnews.activity.PostDetailActivity_;
-import org.x.tongnews.adapter.HomeRecyclerAdapter;
 import org.x.tongnews.data.DataProvider;
 import org.x.tongnews.global.MApplication;
 import org.x.tongnews.object.PostsProvider;
 import org.x.tongnews.object.SlidersProvider;
 import org.x.tongnews.view.HomeHeaderItem;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import jp.wasabeef.recyclerview.animators.adapters.AlphaInAnimationAdapter;
-import jp.wasabeef.recyclerview.animators.adapters.SlideInBottomAnimationAdapter;
+import andy.ayaseruri.lib.TagsView;
+import andy.ayaseruri.lib.mvc.interfaces.Interfaces;
+import andy.ayaseruri.lib.mvc.view.Pull2RefreshRecyclerView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -45,23 +45,16 @@ import retrofit.client.Response;
 @EFragment(R.layout.fragment_home)
 public class HomeFragment extends Fragment {
 
-    private ArrayList<PostsProvider.Post> mHomeListData = new ArrayList<>();
-    private LinearLayoutManager mLayoutManager;
-
     private View mHeaderView;
     private SliderLayout mHeaderSlider;
 
     private Context mContext;
-    private AlphaInAnimationAdapter mAlphaInAnimationAdapter;
+    private boolean hasMore = true;
 
     @App
     MApplication mApplication;
-    @ViewById(R.id.home_recycler)
-    RecyclerView mRecyclerView;
-    @ViewById(R.id.swipe_refreshlayout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
-
-    private int refreshTaskCount;
+    @ViewById(R.id.Pull2RefreshRecyclerView)
+    Pull2RefreshRecyclerView pull2RefreshRecyclerView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,63 +68,123 @@ public class HomeFragment extends Fragment {
         super.onStop();
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
     @AfterViews
     void init(){
-
         mHeaderView = LayoutInflater.from(mContext).inflate(R.layout.home_header, null);
         mHeaderSlider = (SliderLayout)mHeaderView.findViewById(R.id.sliders);
         mHeaderSlider.setIndicatorVisibility(PagerIndicator.IndicatorVisibility.Invisible);
         mHeaderSlider.setDuration(4000);
 
-        mSwipeRefreshLayout.setColorSchemeColors(mContext.getResources().getColor(R.color.main_color));
-
-        mLayoutManager = new LinearLayoutManager(mContext);
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        HomeRecyclerAdapter mHomeRecyclerAdapter = new HomeRecyclerAdapter(mContext, mHomeListData, new HomeRecyclerAdapter.HomeListOnItemClick() {
+        pull2RefreshRecyclerView.setHeaderView(mHeaderView);
+        pull2RefreshRecyclerView.setDataSource(new Interfaces.IDataSource() {
             @Override
-            public void OnItemClick(View v, int postion) {
-                String videoLink = mHomeListData.get(postion).getVideoLink();
-
-                openDetail(((MainActivity) getActivity()).getStartPoint(), String.valueOf(mHomeListData.get(postion).getId())
-                        , mHomeListData.get(postion).getTitle(), mHomeListData.get(postion).getImageUrl(), videoLink);
-            }
-        }, mHeaderView);
-
-        SlideInBottomAnimationAdapter slideInBottomAnimationAdapter =
-                new SlideInBottomAnimationAdapter(mHomeRecyclerAdapter);
-        mAlphaInAnimationAdapter = new AlphaInAnimationAdapter(slideInBottomAnimationAdapter);
-
-        mRecyclerView.setAdapter(mAlphaInAnimationAdapter);
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (mLayoutManager.findLastCompletelyVisibleItemPosition() == mHomeListData.size()) {
-                    getMorePost();
-                }
+            public List getFirstInData() {
+                return DataProvider.getInstance().getFirstInData(PostsProvider.class);
             }
 
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
+            public void onGetRefreshData() {
+                DataProvider.getInstance().onGetRefresh();
             }
-        });
 
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh() {
-                getRefreshPost();
+            public void getLoadMoreData(final Interfaces.IGetDataCallBack callBack) {
+                DataProvider.getInstance().getMorePosts(new Callback<PostsProvider>() {
+                    @Override
+                    public void success(PostsProvider postsProvider, Response response) {
+                        callBack.onSuccess(postsProvider.getPostArrayList());
+                        hasMore = DataProvider.postPageConut < postsProvider.totalPageCount;
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Logger.d(error.toString());
+                    }
+                });
+            }
+
+            @Override
+            public void cancleLoadTask() {
+
+            }
+
+            @Override
+            public boolean hasMore() {
+                return hasMore;
             }
         });
 
-        getFirstInData();
+        pull2RefreshRecyclerView.setiAction(new Interfaces.IAction() {
+            @Override
+            public void onLoadBegin() {
+                DataProvider.getInstance().getRefreshSliders(new Callback<SlidersProvider>() {
+                    @Override
+                    public void success(SlidersProvider slidersProvider, Response response) {
+                        updateSlider(slidersProvider);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onLoadSuccess(List list) {
+
+            }
+
+            @Override
+            public void onLoadFailed() {
+                mApplication.showMsg(MApplication.TOAST_ALERT, "抱歉，但是加载失败啦");
+            }
+
+            @Override
+            public void onLoadError() {
+                mApplication.showMsg(MApplication.TOAST_ALERT, "抱歉，但是什么东西出错啦");
+            }
+
+            @Override
+            public void onAlreadyEnd() {
+                mApplication.showMsg(MApplication.TOAST_ALERT, "已经到达最后一页啦");
+            }
+        });
+
+        pull2RefreshRecyclerView.setiAdapter(new Interfaces.IAdapter() {
+            @Override
+            public View getItemView() {
+                return LayoutInflater.from(mContext).inflate(R.layout.home_recycler_item, null);
+            }
+
+            @Override
+            public void bindViewData(View itemView, Object o) {
+                TagsView tags = (TagsView) itemView.findViewById(R.id.tags);
+                SimpleDraweeView imageView = (SimpleDraweeView) itemView.findViewById(R.id.image);
+                TextView time = (TextView) itemView.findViewById(R.id.time);
+                TextView title = (TextView) itemView.findViewById(R.id.title);
+                TextView shortDescription = (TextView) itemView.findViewById(R.id.short_description);
+                TextView author = (TextView) itemView.findViewById(R.id.author);
+
+                PostsProvider.Post homeListItemData = (PostsProvider.Post) o;
+                imageView.setImageURI(Uri.parse(homeListItemData.getImageUrl()));
+                title.setText(homeListItemData.getTitle());
+                time.setText(homeListItemData.getTime());
+                shortDescription.setText(homeListItemData.getShortDiscription());
+                author.setText(homeListItemData.getAuthor());
+                tags.init(homeListItemData.getTags(), null);
+            }
+
+            @Override
+            public void onItemClick(View itemView, Object o) {
+                String videoLink = ((PostsProvider.Post) o).getVideoLink();
+                openDetail(((MainActivity) getActivity()).getStartPoint(), String.valueOf(((PostsProvider.Post) o).getId())
+                        , ((PostsProvider.Post) o).getTitle(), ((PostsProvider.Post) o).getImageUrl(), videoLink);
+            }
+        });
+
+        pull2RefreshRecyclerView.getmSwipeRefreshLayout().setColorSchemeColors(mContext.getResources().getColor(R.color.main_color));
+        pull2RefreshRecyclerView.init();
     }
 
     @UiThread
@@ -152,117 +205,6 @@ public class HomeFragment extends Fragment {
                             })
                             .image(slider.getImageUrl());
             mHeaderSlider.addSlider(textSliderView);
-        }
-    }
-
-    @UiThread
-    void getFirstInData(){
-        if(!mSwipeRefreshLayout.isRefreshing()) {
-            refreshTaskCount = 2;
-            mSwipeRefreshLayout.post(new Runnable() {
-                @Override
-                public void run() {
-                    mSwipeRefreshLayout.setRefreshing(true);
-                }
-            });
-            DataProvider.getInstance().getFirstInData(PostsProvider.class, new Callback<PostsProvider>() {
-                @Override
-                public void success(PostsProvider postsProvider, Response response) {
-                    if (0 != mHomeListData.size()) {
-                        mHomeListData.clear();
-                    }
-                    mHomeListData.addAll(postsProvider.getPostArrayList());
-                    mAlphaInAnimationAdapter.notifyDataSetChanged();
-                    refreshTaskComplete();
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-                    refreshTaskComplete();
-                }
-            });
-
-            DataProvider.getInstance().getFirstInData(SlidersProvider.class, new Callback<SlidersProvider>() {
-                @Override
-                public void success(SlidersProvider slidersProvider, Response response) {
-                    updateSlider(slidersProvider);
-                    refreshTaskComplete();
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-                    refreshTaskComplete();
-                }
-            });
-        }
-    }
-
-    @UiThread
-    void getRefreshPost(){
-        refreshTaskCount = 2;
-        DataProvider.getInstance().getRefreshSliders(new Callback<SlidersProvider>() {
-            @Override
-            public void success(SlidersProvider slidersProvider, Response response) {
-                updateSlider(slidersProvider);
-                refreshTaskComplete();
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                refreshTaskComplete();
-            }
-        });
-
-        DataProvider.getInstance().getRefreshPosts(new Callback<PostsProvider>() {
-            @Override
-            public void success(PostsProvider postsProvider, Response response) {
-                if (0 != mHomeListData.size()) {
-                    mHomeListData.clear();
-                }
-                mHomeListData.addAll(postsProvider.getPostArrayList());
-                mAlphaInAnimationAdapter.notifyDataSetChanged();
-                refreshTaskComplete();
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                refreshTaskComplete();
-            }
-        });
-    }
-
-    @UiThread
-    void refreshTaskComplete(){
-        refreshTaskCount--;
-        if(0 == refreshTaskCount){
-            mSwipeRefreshLayout.post(new Runnable() {
-                @Override
-                public void run() {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
-            });
-        }
-    }
-
-    @UiThread
-    void getMorePost(){
-        if(!mSwipeRefreshLayout.isRefreshing()){
-            mSwipeRefreshLayout.setRefreshing(true);
-            DataProvider.getInstance().getMorePosts(new Callback<PostsProvider>() {
-                @Override
-                public void success(PostsProvider postsProvider, Response response) {
-                    mHomeListData.addAll(postsProvider.getPostArrayList());
-                    mAlphaInAnimationAdapter.notifyDataSetChanged();
-                    if (mSwipeRefreshLayout.isRefreshing()) {
-                        mSwipeRefreshLayout.setRefreshing(false);
-                    }
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-                    Logger.d(error.toString());
-                }
-            }, false);
         }
     }
 

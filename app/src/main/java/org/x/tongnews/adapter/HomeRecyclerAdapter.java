@@ -13,9 +13,10 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.x.tongnews.R;
 import org.x.tongnews.object.PostsProvider;
-import org.x.tongnews.view.TagsView;
 
 import java.util.ArrayList;
+
+import andy.ayaseruri.lib.TagsView;
 
 /**
  * Created by ayaseruri on 15/7/17.
@@ -58,7 +59,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             homeRecyclerItemViewHolder.time.setText(homeListItemData.getTime());
             homeRecyclerItemViewHolder.shortDescription.setText(homeListItemData.getShortDiscription());
             homeRecyclerItemViewHolder.author.setText(homeListItemData.getAuthor());
-            homeRecyclerItemViewHolder.tags.init(homeListItemData.getTags());
+            homeRecyclerItemViewHolder.tags.init(homeListItemData.getTags(), null);
             homeRecyclerItemViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

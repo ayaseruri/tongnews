@@ -5,7 +5,7 @@
 
     <com.daimajia.slider.library.SliderLayout
         android:id="@+id/sliders"
-        android:layout_height="280dp"
+        android:layout_height="200dp"
         android:layout_width="match_parent"
         android:src="@drawable/drawer_header"
         android:scaleType="centerCrop"/>

@@ -30,7 +30,7 @@ import retrofit.client.Response;
 public class DataProvider {
 
     private static DataProvider instance;
-    private static int postPageConut = 1;
+    public static int postPageConut = 0;
 
     private Pattern mPattern = Pattern.compile("id=(\\d+)");
 
@@ -64,35 +64,27 @@ public class DataProvider {
         NetBusiness.netServiceVideo.getVideoInfo(id, cb);
     }
 
-    public void getFirstInData(Class clazz, Callback cb){
+    public List getFirstInData(Class clazz){
         Dao dao = DataHelper.getInstance().getDao(clazz);
+        List list = null;
         try {
-            List list = dao.queryForAll();
-            if(null != list && 0 != list.size()){
-                cb.success(list.get(0), null);
-            }else {
-                if(clazz.getSimpleName().equals(PostsProvider.class.getSimpleName())){
-                    getRefreshPosts(cb);
-                }else if(clazz.getSimpleName().equals(SlidersProvider.class.getSimpleName())){
-                    getRefreshSliders(cb);
-                }
-            }
+            list = dao.queryForAll();
         } catch (SQLException e) {
             e.printStackTrace();
-            cb.failure(null);
         }
+        return ((PostsProvider)list.get(0)).getPostArrayList();
     }
 
-    public void getRefreshPosts(Callback<PostsProvider> cb){
-        postPageConut = 1;
-        getMorePosts(cb, true);
+    public void onGetRefresh(){
+        postPageConut = 0;
     }
 
-    public void getMorePosts(final Callback<PostsProvider> cb, final boolean needStore){
-        NetBusiness.netService.getPosts(postPageConut++, new Callback<RawPosts>() {
+    public void getMorePosts(final Callback<PostsProvider> cb){
+        NetBusiness.netService.getPosts(postPageConut, new Callback<RawPosts>() {
             @Override
             public void success(RawPosts rawPosts, Response response) {
-                cb.success(posts2PostsProvider(rawPosts, needStore), response);
+                postPageConut++;
+                cb.success(posts2PostsProvider(rawPosts, postPageConut==1), response);
             }
 
             @Override
