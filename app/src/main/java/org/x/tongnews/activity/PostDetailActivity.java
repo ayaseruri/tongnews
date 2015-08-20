@@ -15,6 +15,7 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.umeng.analytics.MobclickAgent;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
@@ -76,7 +77,7 @@ public class PostDetailActivity extends AppCompatActivity {
     private String headerImageUrl;
 
     @AfterViews
-    void init(){
+    void init() {
 
         String id = getIntent().getStringExtra("id");
         videoLink = getIntent().getStringExtra("video_link");
@@ -84,9 +85,9 @@ public class PostDetailActivity extends AppCompatActivity {
         String tile = getIntent().getStringExtra("title");
         mCollapsingToolbarLayout.setTitle(tile);
 
-        if(null != videoLink && !"".equals(videoLink)){
+        if (null != videoLink && !"".equals(videoLink)) {
             Matcher matcher = mPattern.matcher(videoLink);
-            if(matcher.find()){
+            if (matcher.find()) {
                 DataProvider.getInstance().getVideoInfo(matcher.group(1), new Callback<VideoInfo>() {
                     @Override
                     public void success(VideoInfo videoInfo, Response response) {
@@ -99,7 +100,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     }
                 });
             }
-        }else {
+        } else {
             mDetailHeader.setImageURI(Uri.parse(headerImageUrl));
         }
 
@@ -131,7 +132,7 @@ public class PostDetailActivity extends AppCompatActivity {
     }
 
     @UiThread
-    void onDataArrived(PostDetail postDetail){
+    void onDataArrived(PostDetail postDetail) {
         String content = postDetail.getPost().getContent();
         List<String> videoLinks = postDetail.getPost().getCustom_fields().getVideo_link();
         content = content.replaceAll(" height=", " replaced=");
@@ -142,7 +143,7 @@ public class PostDetailActivity extends AppCompatActivity {
     }
 
     @UiThread
-    void updateVideoView(final VideoInfo videoInfo){
+    void updateVideoView(final VideoInfo videoInfo) {
         mDetailHeader.setImageURI(Uri.parse(headerImageUrl));
         playBtn.setVisibility(View.VISIBLE);
         playBtn.setOnClickListener(new View.OnClickListener() {
@@ -182,5 +183,17 @@ public class PostDetailActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("文章详情");
+        MobclickAgent.onResume(this);
+    }
+
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("文章详情");
+        MobclickAgent.onPause(this);
     }
 }

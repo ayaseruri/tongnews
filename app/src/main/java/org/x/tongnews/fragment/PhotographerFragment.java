@@ -5,6 +5,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
+import com.umeng.analytics.MobclickAgent;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.EFragment;
@@ -35,8 +37,12 @@ public class PhotographerFragment extends Fragment {
 
     private ArrayList<String> mPhotoIds = new ArrayList<>();
     private PhotographerBodyAdapter photographerBodyAdapter;
+    private String mTitle;
+
     @AfterViews
     void init(){
+        mTitle = getArguments().getString("title");
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(mApplication.getApplicationContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         header.setLayoutManager(layoutManager);
@@ -67,12 +73,14 @@ public class PhotographerFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(mTitle);
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(mTitle);
     }
 }

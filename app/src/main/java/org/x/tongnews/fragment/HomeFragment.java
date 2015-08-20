@@ -15,6 +15,7 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.orhanobut.logger.Logger;
+import com.umeng.analytics.MobclickAgent;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
@@ -56,10 +57,13 @@ public class HomeFragment extends Fragment {
     @ViewById(R.id.Pull2RefreshRecyclerView)
     Pull2RefreshRecyclerView pull2RefreshRecyclerView;
 
+    private String mTitle;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = mApplication.getApplicationContext();
+        mTitle = getArguments().getString("title");
     }
 
     @Override
@@ -218,5 +222,17 @@ public class HomeFragment extends Fragment {
         intent.putExtra("header_image_url", header_image_url);
         intent.putExtra("video_link", videoLink);
         startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(mTitle);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(mTitle);
     }
 }

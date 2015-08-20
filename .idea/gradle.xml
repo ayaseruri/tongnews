@@ -10,9 +10,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/googlemediaframework" />
-            <option value="$PROJECT_DIR$/library" />
-            <option value="$PROJECT_DIR$/library-addition" />
             <option value="$PROJECT_DIR$/mvcpull2refresh" />
           </set>
         </option>

@@ -1,1 +1,1 @@
-include ':app', ':library', ':library-addition', ':googlemediaframework', ':mvcpull2refresh'
+include ':app', ':mvcpull2refresh'

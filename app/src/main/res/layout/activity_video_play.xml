@@ -1,17 +1,44 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
+    <SurfaceView
         android:id="@+id/video_surface_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <LinearLayout
+        android:id="@+id/media_controller_progress"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal">
+        <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/material_progress_bar"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="正在加载…"
+            style="@style/media_controller_text"/>
+    </LinearLayout>
+
     <RelativeLayout
+        android:id="@+id/media_controller"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="invisible">
+
+        <CheckBox
+            android:id="@+id/media_controller_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:background="@drawable/mediacontroller_btn_selector"
+            android:layout_centerInParent="true"/>
 
         <RelativeLayout
             android:id="@+id/video_view_side_sound_root"
@@ -19,8 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_margin="10dp"
-            android:background="@drawable/video_side_view_bg"
-            android:visibility="invisible">
+            android:background="@drawable/video_side_view_bg">
             <include
                 android:id="@+id/video_view_side_sound"
                 android:layout_width="wrap_content"
@@ -43,8 +69,7 @@
             android:layout_centerVertical="true"
             android:layout_margin="10dp"
             android:layout_alignParentRight="true"
-            android:background="@drawable/video_side_view_bg"
-            android:visibility="invisible">
+            android:background="@drawable/video_side_view_bg">
             <include
                 android:id="@+id/video_view_side_bright"
                 android:layout_width="wrap_content"
@@ -60,5 +85,25 @@
                 android:layout_marginBottom="10dp"/>
         </RelativeLayout>
 
+        <LinearLayout
+            android:id="@+id/media_controller_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentBottom="true">
+            <TextView
+                android:id="@+id/timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00/00:00"
+                style="@style/media_controller_text"/>
+            <SeekBar
+                android:id="@+id/seek_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </RelativeLayout>
-</FrameLayout>
+</merge>

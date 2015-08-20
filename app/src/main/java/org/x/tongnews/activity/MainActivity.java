@@ -19,6 +19,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
 
 import org.androidannotations.annotations.AfterViews;
@@ -29,7 +30,6 @@ import org.androidannotations.annotations.ViewById;
 import org.x.tongnews.R;
 import org.x.tongnews.adapter.FragmentAdapter;
 import org.x.tongnews.fragment.HomeFragment_;
-import org.x.tongnews.fragment.PhotographerFragment;
 import org.x.tongnews.fragment.PhotographerFragment_;
 import org.x.tongnews.global.MApplication;
 
@@ -130,12 +130,8 @@ public class MainActivity extends BaseActivity {
             mTabLayout.addTab(mTabLayout.newTab().setText(tabstitle[i]));
         }
         ArrayList<android.support.v4.app.Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new HomeFragment_());
-        final PhotographerFragment photographerFragment = new PhotographerFragment_();
-        fragmentList.add(photographerFragment);
-        fragmentList.add(new HomeFragment_());
-        fragmentList.add(new HomeFragment_());
-        fragmentList.add(new HomeFragment_());
+        fragmentList.add(HomeFragment_.builder().arg("title", tabstitle[0]).build());
+        fragmentList.add(PhotographerFragment_.builder().arg("title", tabstitle[1]).build());
 
         FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), fragmentList, tabstitle);
         mViewPager.setAdapter(fragmentAdapter);
@@ -152,5 +148,17 @@ public class MainActivity extends BaseActivity {
 
     public int[] getStartPoint(){
         return startPoint;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

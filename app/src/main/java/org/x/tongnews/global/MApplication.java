@@ -13,6 +13,7 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.github.johnpersano.supertoasts.SuperToast;
 import com.github.johnpersano.supertoasts.util.Style;
 import com.squareup.okhttp.OkHttpClient;
+import com.umeng.analytics.MobclickAgent;
 
 import org.androidannotations.annotations.EApplication;
 
@@ -42,6 +43,7 @@ public class MApplication extends Application {
                 .newBuilder(this, okHttpClient)
                 .build();
         Fresco.initialize(this, config);
+        MobclickAgent.openActivityDurationTrack(false);
     }
 
     public int getmScreenHeight(){
