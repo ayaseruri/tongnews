@@ -9,8 +9,8 @@ here's the demo screen:
 
 ![screenshot1](https://github.com/ayaseruri/tongnews/blob/master/screenshot/1.jpg?raw=true)
 
-![screenshot1](https://github.com/ayaseruri/tongnews/blob/master/screenshot/2.jpg?raw=true)
+![screenshot1](https://github.com/ayaseruri/tongnews/blob/master/screenshot/4.jpg?raw=true)
 
 ![screenshot1](https://github.com/ayaseruri/tongnews/blob/master/screenshot/3.jpg?raw=true)
 
-![screenshot1](https://github.com/ayaseruri/tongnews/blob/master/screenshot/4.jpg?raw=true)
+![screenshot1](https://github.com/ayaseruri/tongnews/blob/master/screenshot/2.jpg?raw=true)
