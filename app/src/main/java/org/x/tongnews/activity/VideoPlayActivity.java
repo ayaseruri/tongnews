@@ -87,7 +87,7 @@ public class VideoPlayActivity extends AppCompatActivity implements ExoPlayer.Li
 
     private Handler mHandler;
     private Runnable setMediaContorllerInviseravle;
-    private Timer timer = new Timer(true);
+    private Timer timer;
 
     private AudioManager mAudioManager;
 
@@ -163,6 +163,7 @@ public class VideoPlayActivity extends AppCompatActivity implements ExoPlayer.Li
             public void onPlayerStateChanged(boolean b, int i) {
                 if (i == ExoPlayer.STATE_READY) {
                     mProgress.setVisibility(View.INVISIBLE);
+                    timer = new Timer(true);
                     timer.schedule(new TimerTask() {
                         @Override
                         public void run() {

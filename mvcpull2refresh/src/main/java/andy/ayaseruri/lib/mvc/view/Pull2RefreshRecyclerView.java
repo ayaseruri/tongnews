@@ -36,6 +36,7 @@ public class Pull2RefreshRecyclerView extends LinearLayout implements Interfaces
     private Model model;
 
     private LinearLayoutManager mLayoutManager;
+    private boolean alreadyHasTask = false;
 
     public Pull2RefreshRecyclerView(Context context) {
         super(context);
@@ -69,7 +70,7 @@ public class Pull2RefreshRecyclerView extends LinearLayout implements Interfaces
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if(newState == RecyclerView.SCROLL_STATE_IDLE && mLayoutManager.findLastCompletelyVisibleItemPosition() + 1 == model.dataList.size()){
+                if(newState == RecyclerView.SCROLL_STATE_IDLE && mLayoutManager.findLastCompletelyVisibleItemPosition() + 1 == model.dataList.size() && !alreadyHasTask){
                     model.loadMore(false);
                 }
             }
@@ -78,6 +79,7 @@ public class Pull2RefreshRecyclerView extends LinearLayout implements Interfaces
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if(!alreadyHasTask)
                 model.refresh();
             }
         });
@@ -103,6 +105,7 @@ public class Pull2RefreshRecyclerView extends LinearLayout implements Interfaces
 
     @Override
     public void onLoadBegin() {
+        alreadyHasTask = true;
         if(!mSwipeRefreshLayout.isRefreshing()){
             mSwipeRefreshLayout.post(new Runnable() {
                 @Override
@@ -116,6 +119,7 @@ public class Pull2RefreshRecyclerView extends LinearLayout implements Interfaces
 
     @Override
     public void onLoadSuccess(List dataList) {
+        alreadyHasTask = false;
         if(mSwipeRefreshLayout.isRefreshing()){
             mSwipeRefreshLayout.setRefreshing(false);
         }
@@ -125,6 +129,7 @@ public class Pull2RefreshRecyclerView extends LinearLayout implements Interfaces
 
     @Override
     public void onLoadFailed() {
+        alreadyHasTask = false;
         if(mSwipeRefreshLayout.isRefreshing()){
             mSwipeRefreshLayout.setRefreshing(false);
         }
@@ -133,6 +138,7 @@ public class Pull2RefreshRecyclerView extends LinearLayout implements Interfaces
 
     @Override
     public void onLoadError() {
+        alreadyHasTask = false;
         if(mSwipeRefreshLayout.isRefreshing()){
             mSwipeRefreshLayout.setRefreshing(false);
         }

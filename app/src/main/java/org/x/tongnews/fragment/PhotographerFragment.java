@@ -1,8 +1,10 @@
 package org.x.tongnews.fragment;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.umeng.analytics.MobclickAgent;
@@ -12,6 +14,8 @@ import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.x.tongnews.R;
+import org.x.tongnews.activity.ImageDetailActivity_;
+import org.x.tongnews.activity.MainActivity;
 import org.x.tongnews.adapter.PhotographerBodyAdapter;
 import org.x.tongnews.adapter.PhotographerHeaderAdapter;
 import org.x.tongnews.global.MApplication;
@@ -54,7 +58,16 @@ public class PhotographerFragment extends Fragment {
         }));
 
         body.setLayoutManager(new LinearLayoutManager(mApplication.getApplicationContext()));
-        photographerBodyAdapter = new PhotographerBodyAdapter(mApplication.getApplicationContext(), mPhotoIds);
+        photographerBodyAdapter = new PhotographerBodyAdapter(mApplication.getApplicationContext(), mPhotoIds, new PhotographerBodyAdapter.IPhotographerOnClick() {
+            @Override
+            public void onPhotoClick(View itemView, int position, String url) {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), ImageDetailActivity_.class);
+                intent.putExtra("image_url", url);
+                intent.putExtra("start_point", ((MainActivity)getActivity()).getStartPoint());
+                getActivity().startActivity(intent);
+            }
+        });
         body.setAdapter(photographerBodyAdapter);
     }
 

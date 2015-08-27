@@ -5,12 +5,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.webkit.WebView;
 import android.widget.ImageView;
 
@@ -35,14 +32,13 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import io.codetail.animation.SupportAnimator;
-import io.codetail.animation.ViewAnimationUtils;
+import andy.ayaseruri.circularrevealactivitylib.CircularRevealActivity;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 @EActivity(R.layout.activity_post_detail)
-public class PostDetailActivity extends AppCompatActivity {
+public class PostDetailActivity extends CircularRevealActivity {
 
     @App
     MApplication mApplication;
@@ -51,7 +47,12 @@ public class PostDetailActivity extends AppCompatActivity {
     CollapsingToolbarLayout mCollapsingToolbarLayout;
 
     public static final String CSS_STYLE = "<style>img {\n" +
-            "\tmax-width:100%!important;\n" +
+            "\tmargin-top: 0.4em;\n" +
+            "\tmargin-bottom: 0.4em;\n" +
+            "\tvertical-align: bottom;\n" +
+            "\twidth: 98%;\n" +
+            "\tbox-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.4);\n" +
+            "\tborder-radius: 0.2em;\n" +
             "\theight:auto!important;\n" +
             "\t}\n" +
             "iframe {\n" +
@@ -78,7 +79,6 @@ public class PostDetailActivity extends AppCompatActivity {
 
     @AfterViews
     void init() {
-
         String id = getIntent().getStringExtra("id");
         videoLink = getIntent().getStringExtra("video_link");
         headerImageUrl = getIntent().getStringExtra("header_image_url");
@@ -113,20 +113,6 @@ public class PostDetailActivity extends AppCompatActivity {
             @Override
             public void failure(RetrofitError error) {
 
-            }
-        });
-
-        final int[] startFormLoctaion = getIntent().getIntArrayExtra("start_form_location");
-        revealLinearLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                revealLinearLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                int finalRadius = Math.max(mApplication.getScreenWidth(), mApplication.getmScreenHeight());
-                SupportAnimator animator =
-                        ViewAnimationUtils.createCircularReveal(revealLinearLayout, startFormLoctaion[0], startFormLoctaion[1], 0, finalRadius);
-                animator.setInterpolator(new AccelerateDecelerateInterpolator());
-                animator.setDuration(600);
-                animator.start();
             }
         });
     }

@@ -12,4 +12,5 @@
 
     <string name="video_time">%1$s/%2$s</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_image_detail">ImageDetailActivity</string>
 </resources>

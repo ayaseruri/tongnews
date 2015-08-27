@@ -21,11 +21,13 @@ public class PhotographerBodyAdapter extends RecyclerView.Adapter<PhotographerBo
     private static final String PHOTO_URL_BASE = "http://7xk7dq.com1.z0.glb.clouddn.com/images/photo/pcp";
 
     public Context mContext;
-    ArrayList<String> mPhotosId;
+    private ArrayList<String> mPhotosId;
+    private IPhotographerOnClick mIPhotographerOnClick;
 
-    public PhotographerBodyAdapter(Context context, ArrayList<String> photosId){
+    public PhotographerBodyAdapter(Context context, ArrayList<String> photosId, IPhotographerOnClick iPhotographerOnClick){
         mContext = context;
         mPhotosId = photosId;
+        this.mIPhotographerOnClick = iPhotographerOnClick;
     }
 
     @Override
@@ -34,8 +36,15 @@ public class PhotographerBodyAdapter extends RecyclerView.Adapter<PhotographerBo
     }
 
     @Override
-    public void onBindViewHolder(PhotographerBodyViewHolder holder, int position) {
-        holder.photo.setImageURI(Uri.parse(PHOTO_URL_BASE + mPhotosId.get(position) + ".jpg"));
+    public void onBindViewHolder(PhotographerBodyViewHolder holder, final int position) {
+        final String url = PHOTO_URL_BASE + mPhotosId.get(position) + ".jpg";
+        holder.photo.setImageURI(Uri.parse(url));
+        holder.photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIPhotographerOnClick.onPhotoClick(v.getRootView(), position, url);
+            }
+        });
     }
 
     @Override
@@ -45,10 +54,13 @@ public class PhotographerBodyAdapter extends RecyclerView.Adapter<PhotographerBo
 
     public static class PhotographerBodyViewHolder extends RecyclerView.ViewHolder{
         public SimpleDraweeView photo;
-
         public PhotographerBodyViewHolder(View itemView) {
             super(itemView);
             photo = (SimpleDraweeView)itemView.findViewById(R.id.photo);
         }
+    }
+
+    public interface IPhotographerOnClick{
+        void onPhotoClick(View itemView, int position, String url);
     }
 }

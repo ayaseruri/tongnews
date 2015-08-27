@@ -216,7 +216,7 @@ public class HomeFragment extends Fragment {
     void openDetail(int[] startFormLocation, String id, String title, String header_image_url, String videoLink){
         Intent intent = new Intent();
         intent.setClass(mContext, PostDetailActivity_.class);
-        intent.putExtra("start_form_location", startFormLocation);
+        intent.putExtra("start_point", startFormLocation);
         intent.putExtra("title", title);
         intent.putExtra("id", id);
         intent.putExtra("header_image_url", header_image_url);

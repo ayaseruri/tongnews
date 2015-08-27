@@ -1,84 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.codetail.widget.RevealFrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:id="@+id/post_detail_sence"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@android:color/white">
 
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/post_detail_sence"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_height="@dimen/fragment_detail_head"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:background="@android:color/white">
-
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/app_bar"
-            android:layout_height="@dimen/fragment_detail_head"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:fitsSystemWindows="true">
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            android:fitsSystemWindows="true">
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/collapsing_toolbar"
+            android:layout_height="match_parent"
+            android:minHeight="?attr/actionBarSize"
+            android:fitsSystemWindows="true"
+            app:expandedTitleTextAppearance="@style/expandedTitleTextAppearance"
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+            app:contentScrim="?attr/colorPrimary">
+
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:minHeight="?attr/actionBarSize"
-                android:fitsSystemWindows="true"
-                app:expandedTitleTextAppearance="@style/expandedTitleTextAppearance"
-                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
-                app:contentScrim="?attr/colorPrimary">
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7"
+                android:fitsSystemWindows="true">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/detail_header"
                     android:layout_height="match_parent"
-                    app:layout_collapseMode="parallax"
-                    app:layout_collapseParallaxMultiplier="0.7"
-                    android:fitsSystemWindows="true">
-
-                    <com.facebook.drawee.view.SimpleDraweeView
-                        android:id="@+id/detail_header"
-                        android:layout_height="match_parent"
-                        android:layout_width="match_parent"
-                        fresco:actualImageScaleType="centerCrop" />
-
-                    <ImageView
-                        android:id="@+id/ic_play_normal"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/play_button"
-                        android:visibility="invisible"
-                        android:fitsSystemWindows="false"/>
-
-                </FrameLayout>
-
-                <android.support.v7.widget.Toolbar
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:layout_collapseMode="pin"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-                </android.support.v7.widget.Toolbar>
-            </android.support.design.widget.CollapsingToolbarLayout>
-        </android.support.design.widget.AppBarLayout>
+                    fresco:actualImageScaleType="centerCrop" />
 
-        <android.support.v4.widget.NestedScrollView
+                <ImageView
+                    android:id="@+id/ic_play_normal"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/play_button"
+                    android:visibility="invisible"
+                    android:fitsSystemWindows="false"/>
+
+            </FrameLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <org.x.tongnews.view.ProgressBarWebView
+            android:id="@+id/progressbar_webview"
             android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-            <org.x.tongnews.view.ProgressBarWebView
-                android:id="@+id/progressbar_webview"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent" />
-        </android.support.v4.widget.NestedScrollView>
-        <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:onClick="checkin"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_margin="16dp"-->
-        <!--android:clickable="true"-->
-        <!--app:layout_anchor="@id/app_bar"-->
-        <!--app:layout_anchorGravity="bottom|right|end"/>-->
-    </android.support.design.widget.CoordinatorLayout>
-</io.codetail.widget.RevealFrameLayout>
+            android:layout_width="match_parent" />
+    </android.support.v4.widget.NestedScrollView>
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:onClick="checkin"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="16dp"-->
+    <!--android:clickable="true"-->
+    <!--app:layout_anchor="@id/app_bar"-->
+    <!--app:layout_anchorGravity="bottom|right|end"/>-->
+</android.support.design.widget.CoordinatorLayout>

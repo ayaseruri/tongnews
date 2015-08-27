@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="org.x.tongnews.activity.LoginActivity">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/email" >
+        <AutoCompleteTextView android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:hint="@string/prompt_email"
+            android:inputType="textEmailAddress" android:maxLines="1"
+            android:singleLine="true" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/password" >
+        <EditText android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:hint="@string/prompt_password"
+            android:imeActionId="@+id/login"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeOptions="actionUnspecified" android:inputType="textPassword"
+            android:maxLines="1" android:singleLine="true" />
+    </android.support.design.widget.TextInputLayout>
+
+    <com.dd.processbutton.iml.ActionProcessButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="登陆"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        custom:pb_colorComplete="#ff99cc00"
+        custom:pb_colorNormal="@color/main_color"
+        custom:pb_colorPressed="#b94364"
+        custom:pb_colorProgress="#ffaa66cc"
+        custom:pb_textComplete="登陆成功"
+        custom:pb_textProgress="正在登陆"
+        custom:pb_textError="登陆出错啦"
+        custom:pb_colorError="#ffff4444" />
+</LinearLayout>
+
