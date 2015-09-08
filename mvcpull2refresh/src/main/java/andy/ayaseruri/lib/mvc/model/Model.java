@@ -22,7 +22,7 @@ public class Model{
     public void firstIn(){
         this.dataList.clear();
         iDataSource.onGetRefreshData();
-        if(null != iDataSource.getFirstInData()){
+        if(null != iDataSource.getFirstInData() && 0 != iDataSource.getFirstInData().size()){
             dataList.addAll(iDataSource.getFirstInData());
             iAction.onLoadSuccess(Model.this.dataList);
         }

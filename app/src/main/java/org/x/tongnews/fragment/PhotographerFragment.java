@@ -14,7 +14,7 @@ import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.x.tongnews.R;
-import org.x.tongnews.activity.ImageDetailActivity_;
+import org.x.tongnews.activity.ImageDetailActivity;
 import org.x.tongnews.activity.MainActivity;
 import org.x.tongnews.adapter.PhotographerBodyAdapter;
 import org.x.tongnews.adapter.PhotographerHeaderAdapter;
@@ -62,7 +62,7 @@ public class PhotographerFragment extends Fragment {
             @Override
             public void onPhotoClick(View itemView, int position, String url) {
                 Intent intent = new Intent();
-                intent.setClass(getActivity(), ImageDetailActivity_.class);
+                intent.setClass(getActivity(), ImageDetailActivity.class);
                 intent.putExtra("image_url", url);
                 intent.putExtra("start_point", ((MainActivity)getActivity()).getStartPoint());
                 getActivity().startActivity(intent);

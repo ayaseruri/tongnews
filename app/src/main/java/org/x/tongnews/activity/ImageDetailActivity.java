@@ -1,29 +1,32 @@
 package org.x.tongnews.activity;
 
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ScaleGestureDetector;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
 import org.x.tongnews.R;
 
-import andy.ayaseruri.circularrevealactivitylib.CircularRevealActivity;
+import andy.ayaseruri.lib.CircularRevealActivity;
 
-@EActivity(R.layout.activity_image_detail)
 public class ImageDetailActivity extends CircularRevealActivity {
 
-    @ViewById(R.id.detail_image)
     SimpleDraweeView detailImage;
 
-    @AfterViews
     void init(){
         String imageUrl = getIntent().getStringExtra("image_url");
         detailImage.setImageURI(Uri.parse(imageUrl));
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_image_detail);
+        detailImage = (SimpleDraweeView)findViewById(R.id.detail_image);
+        init();
     }
 
     @Override

@@ -16,7 +16,7 @@ import org.x.tongnews.object.PostsProvider;
 
 import java.util.ArrayList;
 
-import andy.ayaseruri.lib.TagsView;
+import andy.ayaseruri.tagsviewlib.TagsView;
 
 /**
  * Created by ayaseruri on 15/7/17.

@@ -117,7 +117,7 @@
                         android:layout_height="13dp"
                         android:src="@drawable/ic_action_label" />
 
-                    <andy.ayaseruri.lib.TagsView
+                    <andy.ayaseruri.tagsviewlib.TagsView
                         android:id="@+id/tags"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

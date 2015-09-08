@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import andy.ayaseruri.circularrevealactivitylib.CircularRevealActivity;
+import andy.ayaseruri.lib.CircularRevealActivity;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;

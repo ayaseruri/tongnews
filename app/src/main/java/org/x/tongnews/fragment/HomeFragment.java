@@ -32,9 +32,9 @@ import org.x.tongnews.view.HomeHeaderItem;
 
 import java.util.List;
 
-import andy.ayaseruri.lib.TagsView;
 import andy.ayaseruri.lib.mvc.interfaces.Interfaces;
 import andy.ayaseruri.lib.mvc.view.Pull2RefreshRecyclerView;
+import andy.ayaseruri.tagsviewlib.TagsView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;

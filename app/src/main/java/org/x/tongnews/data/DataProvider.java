@@ -72,7 +72,11 @@ public class DataProvider {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return ((PostsProvider)list.get(0)).getPostArrayList();
+        if(0 != list.size()){
+            return ((PostsProvider)list.get(0)).getPostArrayList();
+        }else {
+            return null;
+        }
     }
 
     public void onGetRefresh(){

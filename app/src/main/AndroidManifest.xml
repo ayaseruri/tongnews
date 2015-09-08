@@ -68,7 +68,7 @@
                 android:value="org.x.tongnews.activity.PostDetailActivity_" />
         </activity>
         <activity
-            android:name=".activity.ImageDetailActivity_"
+            android:name=".activity.ImageDetailActivity"
             android:label="@string/title_activity_image_detail"
             android:parentActivityName=".activity.MainActivity_"
             android:theme="@style/Translucent" >
